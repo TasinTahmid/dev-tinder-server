@@ -18,8 +18,12 @@ app.post("/signup", async (req, res) => {
 
 	const user = new User(newUser);
 
-	await user.save();
-	res.status(201).send("User created successfully.");
+	try {
+		await user.save();
+		res.status(201).send("User created successfully.");
+	}catch(err) {
+		res.status(400).send("Error saving User:", err.message);
+	}
 });
 
 
